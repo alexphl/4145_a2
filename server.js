@@ -1,25 +1,27 @@
 "use strict";
-import express, { json as _json } from "express";
+import express from "express";
 import { readdirSync } from "fs";
-import AWS from 'aws-sdk';
+import AWS from '@aws-sdk/client-s3';
 
 const app = express();
 const PORT = 5000;
 const HOST = "0.0.0.0";
-const srv = "http://52.91.127.198:8080";
-
-AWS.config.update({region: 'us-east-1'});
+const srv = "52.91.127.198:8080";
 
 const startPayload = {
-   "banner": "<Replace with your Banner ID, e.g. B00123456>",
-   "ip": ""
-}
+	banner: "B00847680",
+	ip: "0.0.0.0",
+};
+
+const s3 = new AWS.S3({region: 'us-east-1'});
 
 fetch(`http://${srv}/start`, {
-		method: "POST",
-		body: JSON.stringify(startPayload),
-		headers: { "Content-Type": "application/json" },
-	}).then((res) => res.json()).then((json) => console.log(json));
+	method: "POST",
+	body: JSON.stringify(startPayload),
+	headers: { "Content-Type": "application/json" },
+})
+	.then((res) => res.text())
+	.then((text) => console.log(text));
 
 app.get("/", (req, res) => {
 	const response = `"Hello World!" said srv1\n'`;
