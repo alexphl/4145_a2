@@ -8,6 +8,7 @@ const PORT = 5000;
 const HOST = "0.0.0.0";
 const srv = "52.91.127.198:8080";
 const bucket = "b00847680a2bucket";
+const bucketURL = `https://${bucket}.s3.amazonaws.com`;
 
 const startPayload = {
 	banner: "B00847680",
@@ -30,6 +31,7 @@ app.get("/files", (req, res) => {
 app.post("/storedata", _json(), (req, res) => {
 	console.log("Content " + req.body.data);
 	const data = req.body.data;
+	const filename = "test";
 
 	s3.putObject({
 		Bucket: bucket,
@@ -37,8 +39,8 @@ app.post("/storedata", _json(), (req, res) => {
 		Body: data,
 		ContentType: "text",
 	});
-	
-	res.send({ s3uri: "" });
+
+	res.send({ s3uri: `${bucketURL}/test` });
 });
 
 app.listen(PORT, () => {
