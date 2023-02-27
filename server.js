@@ -9,6 +9,8 @@ const HOST = "0.0.0.0";
 const srv = "52.91.127.198:8080";
 const bucket = "b00847680a2bucket";
 const bucketURL = `https://${bucket}.s3.amazonaws.com`;
+const filename = "test";
+let content = "";
 
 const startPayload = {
 	banner: "B00847680",
@@ -22,21 +24,30 @@ app.get("/", (req, res) => {
 	res.send(response);
 });
 
-// For testing purposes
-app.get("/files", (req, res) => {
-	const files = [...readdirSync("/usr/src/app/files")];
-	res.send(files);
-});
-
 app.post("/storedata", _json(), async (req, res) => {
-	console.log("Content " + req.body.data);
-	const data = req.body.data;
-	const filename = "test";
+	console.log("Creating file with content: " + req.body.data);
+	const content = req.body.data;
 
 	await s3.putObject({
 		Bucket: bucket,
-		Key: "test",
-		Body: data,
+		Key: filename,
+		Body: content,
+		ContentType: "text",
+	});
+
+	res.send({ s3uri: `${bucketURL}/test` });
+});
+
+app.post("/appenddata", _json(), async (req, res) => {
+	const data = req.body.data;
+	console.log("Appending " + data);
+
+	content = content + data;
+
+	await s3.putObject({
+		Bucket: bucket,
+		Key: filename,
+		Body: content,
 		ContentType: "text",
 	});
 
