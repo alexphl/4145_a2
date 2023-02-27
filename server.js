@@ -7,10 +7,11 @@ const app = express();
 const PORT = 5000;
 const HOST = "0.0.0.0";
 const srv = "52.91.127.198:8080";
+const bucket = "b00847680a2bucket";
 
 const startPayload = {
 	banner: "B00847680",
-	ip: "0.0.0.0",
+	ip: "3.235.3.150",
 };
 
 const s3 = new AWS.S3({region: 'us-east-1'});
@@ -32,6 +33,11 @@ app.get("/", (req, res) => {
 app.get("/files", (req, res) => {
 	const files = [...readdirSync("/usr/src/app/files")];
 	res.send(files);
+});
+
+app.post("/storedata", (req, res) => {
+	const content = req.body;
+	console.log(content);
 });
 
 app.listen(PORT, () => {
