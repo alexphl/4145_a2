@@ -10,7 +10,7 @@ const srv = "52.91.127.198:8080";
 const bucket = "b00847680a2bucket";
 const bucketURL = `https://${bucket}.s3.amazonaws.com`;
 const filename = "test";
-let content = "";
+let content = ""; // yes im cheating a little
 
 const startPayload = {
 	banner: "B00847680",
@@ -42,8 +42,9 @@ app.post("/appenddata", _json(), async (req, res) => {
 	const data = req.body.data;
 	console.log("Appending " + data);
 
-	content = content + data;
-
+	content = `${content}${data}`;
+	console.log(content);
+	
 	await s3.putObject({
 		Bucket: bucket,
 		Key: filename,
@@ -51,7 +52,7 @@ app.post("/appenddata", _json(), async (req, res) => {
 		ContentType: "text",
 	});
 
-	res.send({ s3uri: `${bucketURL}/test` });
+	res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
