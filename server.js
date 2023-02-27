@@ -16,7 +16,7 @@ const startPayload = {
 
 const s3 = new AWS.S3({region: 'us-east-1'});
 
-fetch(`http://${srv}/start`, {
+await fetch(`http://${srv}/start`, {
 	method: "POST",
 	body: JSON.stringify(startPayload),
 	headers: { "Content-Type": "application/json" },
