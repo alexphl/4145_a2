@@ -16,14 +16,6 @@ const startPayload = {
 
 const s3 = new AWS.S3({region: 'us-east-1'});
 
-await fetch(`http://${srv}/start`, {
-	method: "POST",
-	body: JSON.stringify(startPayload),
-	headers: { "Content-Type": "application/json" },
-})
-	.then((res) => res.text())
-	.then((text) => console.log(text));
-
 app.get("/", (req, res) => {
 	const response = `"Hello World!" said srv1\n'`;
 	res.send(response);
@@ -43,3 +35,11 @@ app.post("/storedata", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Running on http://${HOST}:${PORT}`);
 });
+
+await fetch(`http://${srv}/start`, {
+	method: "POST",
+	body: JSON.stringify(startPayload),
+	headers: { "Content-Type": "application/json" },
+})
+	.then((res) => res.text())
+	.then((text) => console.log(text));
