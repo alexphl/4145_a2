@@ -1,6 +1,5 @@
 "use strict";
 import express, { json as _json } from "express";
-import { readdirSync } from "fs";
 import AWS from "@aws-sdk/client-s3";
 
 const app = express();
@@ -14,7 +13,7 @@ let content = ""; // yes im cheating a little
 
 const startPayload = {
 	banner: "B00847680",
-	ip: "3.239.32.108",
+	ip: "3.239.32.108", // ec2 public IP goes here, this is not automated
 };
 
 const s3 = new AWS.S3({ region: "us-east-1" });
