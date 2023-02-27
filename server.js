@@ -55,6 +55,18 @@ app.post("/appenddata", _json(), async (req, res) => {
 	res.sendStatus(200);
 });
 
+app.post("/deletefile", _json(), async (req, res) => {
+	const data = req.body.data;
+	console.log("Deleting " + data);
+
+	await s3.deleteObject({
+		Bucket: bucket,
+		Key: filename
+	});
+
+	res.sendStatus(200);
+});
+
 app.listen(PORT, () => {
 	console.log(`Running on http://${HOST}:${PORT}`);
 });
