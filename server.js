@@ -1,5 +1,5 @@
 "use strict";
-import express from "express";
+import express, { json as _json } from "express";
 import { readdirSync } from "fs";
 import AWS from "@aws-sdk/client-s3";
 
@@ -27,9 +27,8 @@ app.get("/files", (req, res) => {
 	res.send(files);
 });
 
-app.post("/storedata", (req, res) => {
-	const content = req.body;
-	console.log("Content " + content);
+app.post("/storedata", _json(), (req, res) => {
+	console.log("Content " + req.body);
 	res.send({ s3uri: "" });
 });
 
