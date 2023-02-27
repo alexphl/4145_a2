@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.post("/storedata", _json(), async (req, res) => {
 	console.log("Creating file with content: " + req.body.data);
-	const content = req.body.data;
+	content = req.body.data;
 
 	await s3.putObject({
 		Bucket: bucket,
@@ -44,7 +44,7 @@ app.post("/appenddata", _json(), async (req, res) => {
 
 	content = `${content}${data}`;
 	console.log(content);
-	
+
 	await s3.putObject({
 		Bucket: bucket,
 		Key: filename,
