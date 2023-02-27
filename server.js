@@ -28,7 +28,7 @@ app.get("/files", (req, res) => {
 });
 
 app.post("/storedata", _json(), (req, res) => {
-	console.log("Content " + JSON.stringify(req.body));
+	console.log("Content " + req.body.data);
 	res.send({ s3uri: "" });
 });
 
