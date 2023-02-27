@@ -29,7 +29,7 @@ app.get("/files", (req, res) => {
 
 app.post("/storedata", (req, res) => {
 	const content = req.body;
-	console.log(content);
+	console.log("Content " + content);
 });
 
 app.listen(PORT, () => {
