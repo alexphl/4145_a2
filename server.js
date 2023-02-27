@@ -1,7 +1,7 @@
 "use strict";
 import express from "express";
 import { readdirSync } from "fs";
-import AWS from '@aws-sdk/client-s3';
+import AWS from "@aws-sdk/client-s3";
 
 const app = express();
 const PORT = 5000;
@@ -14,7 +14,7 @@ const startPayload = {
 	ip: "3.235.3.150",
 };
 
-const s3 = new AWS.S3({region: 'us-east-1'});
+const s3 = new AWS.S3({ region: "us-east-1" });
 
 app.get("/", (req, res) => {
 	const response = `"Hello World!" said srv1\n'`;
@@ -30,6 +30,7 @@ app.get("/files", (req, res) => {
 app.post("/storedata", (req, res) => {
 	const content = req.body;
 	console.log("Content " + content);
+	res.send({ s3uri: "" });
 });
 
 app.listen(PORT, () => {
