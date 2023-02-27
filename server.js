@@ -11,7 +11,7 @@ const bucket = "b00847680a2bucket";
 
 const startPayload = {
 	banner: "B00847680",
-	ip: "3.235.3.150",
+	ip: "3.239.32.108",
 };
 
 const s3 = new AWS.S3({ region: "us-east-1" });
