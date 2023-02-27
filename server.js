@@ -29,6 +29,15 @@ app.get("/files", (req, res) => {
 
 app.post("/storedata", _json(), (req, res) => {
 	console.log("Content " + req.body.data);
+	const data = req.body.data;
+
+	s3.putObject({
+		Bucket: bucket,
+		Key: "test",
+		Body: data,
+		ContentType: "text",
+	});
+	
 	res.send({ s3uri: "" });
 });
 
